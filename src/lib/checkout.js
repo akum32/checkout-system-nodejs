@@ -1,3 +1,5 @@
+const CheckoutItem = require('./checkout-item');
+
 class Checkout {
 
   constructor(productRepository) {
@@ -8,22 +10,23 @@ class Checkout {
   add(productId) {
     return Promise.resolve(this._items[productId])
       .then(item => item ? item : this._addItem(productId))
-      .then(item => item.qty += 1);
+      .then(item => item.increaseQty());
   }
 
   _addItem(productId) {
     return this._productRepository.fetchById(productId).then(
       product => {
-        this._items[productId] = {product, qty: 0};
-        return this._items[productId];
+        const checkoutItem = new CheckoutItem(product);
+        this._items[productId] = checkoutItem;
+        return checkoutItem;
       }
     );
   }
 
   total() {
-    return Object.entries(this._items).reduce((sum, [_id, item]) => {
-        return sum + (item.qty * item.product.price);
-    }, 0);
+    return Object.values(this._items).reduce(
+      (sum, item) => sum + item.total(), 0
+    );
   }
 }
 
