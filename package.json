@@ -1,0 +1,14 @@
+{
+  "name": "checkout-system",
+  "version": "1.0.0",
+  "description": "Seek coding test",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Asheesh Karwal",
+  "dependencies": {},
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.4.2"
+  }
+}
