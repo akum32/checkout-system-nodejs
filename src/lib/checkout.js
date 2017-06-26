@@ -7,20 +7,16 @@ class Checkout {
     this._items = {};
   }
 
-  add(productId) {
-    return Promise.resolve(this._items[productId])
-      .then(item => item ? item : this._addItem(productId))
-      .then(item => item.increaseQty());
+  async add(productId) {
+    const exists = this._items[productId];
+    const item = exists ? this._items[productId] : await this._addItem(productId);
+    item.increaseQty();
   }
 
-  _addItem(productId) {
-    return this._productRepository.fetchById(productId).then(
-      product => {
-        const checkoutItem = new CheckoutItem(product);
-        this._items[productId] = checkoutItem;
-        return checkoutItem;
-      }
-    );
+  async _addItem(productId) {
+    const product = await this._productRepository.fetchById(productId);
+    this._items[productId] = new CheckoutItem(product);
+    return this._items[productId];
   }
 
   total() {
