@@ -1,28 +1,33 @@
 const CheckoutItem = require('./checkout-item');
+const PricingContext = require('./pricing-context');
 
 class Checkout {
 
-  constructor(productRepository) {
-    this._productRepository = productRepository;
+  constructor(productStore, priceRules) {
+    this._productStore = productStore;
+    this._priceRules = priceRules || [];
     this._items = {};
   }
 
   async add(productId) {
-    const exists = this._items[productId];
-    const item = exists ? this._items[productId] : await this._addItem(productId);
-    item.increaseQty();
+    const existingItem = this._items[productId];
+    existingItem ? existingItem.addQty() : await this._addNewItem(productId);
   }
 
-  async _addItem(productId) {
-    const product = await this._productRepository.fetchById(productId);
+  async total() {
+    return this._calculatePricing().totalPrice;
+  }
+
+  _calculatePricing() {
+    const pricingContext = new PricingContext(this._items);
+    this._priceRules.forEach(rule => rule.apply(pricingContext))
+    return {totalPrice: pricingContext.totalPrice()};
+  }
+
+  async _addNewItem(productId) {
+    const product = await this._productStore.fetchById(productId);
     this._items[productId] = new CheckoutItem(product);
     return this._items[productId];
-  }
-
-  total() {
-    return Object.values(this._items).reduce(
-      (sum, item) => sum + item.total(), 0
-    );
   }
 }
 

@@ -2,15 +2,27 @@ class CheckoutItem {
 
   constructor(product) {
     this._product = product;
-    this._qty = 0;
+    this._qty = 1;
   }
 
-  increaseQty() {
+  get id() {
+    return this._product.id;
+  }
+
+  get price() {
+    return this._product.price;
+  }
+
+  get qty() {
+    return this._qty;
+  }
+
+  addQty() {
     this._qty ++;
   }
 
   total() {
-    return this._qty * this._product.price;
+    return this.qty * this.price;
   }
 }
 
