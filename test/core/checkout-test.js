@@ -1,4 +1,4 @@
-const Checkout = require('../src/lib/checkout');
+const Checkout = require('../../src/core/checkout');
 
 describe('Checkout', () => {
 

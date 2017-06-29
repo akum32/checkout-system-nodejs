@@ -1,6 +1,6 @@
-const CheckoutItem = require('../src/lib/checkout-item');
-const PricingContext = require('../src/lib/pricing-context');
-const DealPriceRule = require('../src/lib/deal-price-rule');
+const CheckoutItem = require('../../src/core/checkout-item');
+const PricingContext = require('../../src/core/pricing-context');
+const DealPriceRule = require('../../src/core/deal-price-rule');
 
 describe('deal price rule', () => {
 
