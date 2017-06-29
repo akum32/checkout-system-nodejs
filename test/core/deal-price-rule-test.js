@@ -4,8 +4,8 @@ const DealPriceRule = require('../../src/core/deal-price-rule');
 
 describe('deal price rule', () => {
 
-  it('gives 1 product free if deal is 3 for 2 and product qty is 3', () => {
-    const adjustments = applyRule({
+  it('gives 1 product free if deal is 3 for 2 and product qty is 3', async () => {
+    const adjustments = await applyRule({
       productId: 'B',
       requiredQty: 3,
       freeQty: 1,
@@ -18,8 +18,8 @@ describe('deal price rule', () => {
     expect(adjustments).to.eql([{productId: 'B', amount: -250}]);
   });
 
-  it('gives 1 product free if deal is 3 for 2 and product qty is 4', () => {
-    const adjustments = applyRule({
+  it('gives 1 product free if deal is 3 for 2 and product qty is 4', async () => {
+    const adjustments = await applyRule({
       productId: 'B',
       requiredQty: 3,
       freeQty: 1,
@@ -33,8 +33,8 @@ describe('deal price rule', () => {
   });
 
 
-  it('gives 2 products free if deal is 3 for 2 and product qty is 6', () => {
-    const adjustments = applyRule({
+  it('gives 2 products free if deal is 3 for 2 and product qty is 6', async () => {
+    const adjustments = await applyRule({
       productId: 'B',
       requiredQty: 3,
       freeQty: 1,
@@ -47,8 +47,8 @@ describe('deal price rule', () => {
     expect(adjustments).to.eql([{productId: 'B', amount: -500}]);
   });
 
-  it('gives 0 products free if deal is 3 for 2 and product qty is 2', () => {
-    const adjustments = applyRule({
+  it('gives 0 products free if deal is 3 for 2 and product qty is 2', async () => {
+    const adjustments = await applyRule({
       productId: 'B',
       requiredQty: 3,
       freeQty: 1,
@@ -61,8 +61,8 @@ describe('deal price rule', () => {
     expect(adjustments).to.eql([]);
   });
 
-  it('gives 0 products free if required product not found', () => {
-    const adjustments = applyRule({
+  it('gives 0 products free if required product not found', async () => {
+    const adjustments = await applyRule({
       productId: 'B',
       requiredQty: 3,
       freeQty: 1,
@@ -74,9 +74,9 @@ describe('deal price rule', () => {
     expect(adjustments).to.eql([]);
   });
 
-  function applyRule({productId, requiredQty, freeQty, pricingContext}) {
+  async function applyRule({productId, requiredQty, freeQty, pricingContext}) {
     const rule = new DealPriceRule({productId, requiredQty, freeQty});
-    rule.apply(pricingContext);
+    await rule.apply(pricingContext);
     return pricingContext.adjustments;
   }
 
