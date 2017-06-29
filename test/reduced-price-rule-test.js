@@ -4,7 +4,7 @@ const ReducedPriceRule = require('../src/lib/reduced-price-rule');
 
 describe('reduced price rule', () => {
 
-  it('adds adjustment if the product qty is equal to the required qty', () => {
+  it('reduces price if the product qty is equal to the required qty', () => {
     const adjustments = applyRule({
       productId: 'B',
       reducedPrice: 200,
@@ -18,7 +18,7 @@ describe('reduced price rule', () => {
     expect(adjustments).to.eql([{productId: 'B', amount: -150}]);
   });
 
-  it('adds adjustment if the product qty is more than the required qty', () => {
+  it('reduces price if the product qty is more than the required qty', () => {
     const adjustments = applyRule({
       productId: 'B',
       reducedPrice: 200,
@@ -32,7 +32,7 @@ describe('reduced price rule', () => {
     expect(adjustments).to.eql([{productId: 'B', amount: -200}]);
   });
 
-  it('does not add adjustment if the product qty is less than the required qty', () => {
+  it('does not reduce price if the product qty is less than the required qty', () => {
     const adjustments = applyRule({
       productId: 'B',
       reducedPrice: 200,
@@ -46,7 +46,7 @@ describe('reduced price rule', () => {
     expect(adjustments).to.eql([]);
   });
 
-  it('does not add adjustment if the required product not found', () => {
+  it('does not reduce price if the required product not found', () => {
     const adjustments = applyRule({
       productId: 'B',
       reducedPrice: 200,
