@@ -15,12 +15,13 @@ class Checkout {
   }
 
   async total() {
-    return this._calculatePricing().totalPrice;
+    const pricing = await this._calculatePricing();
+    return pricing.totalPrice;
   }
 
-  _calculatePricing() {
+  async _calculatePricing() {
     const pricingContext = new PricingContext(this._items);
-    this._priceRules.forEach(rule => rule.apply(pricingContext))
+    for (const rule of this._priceRules) await rule.apply(pricingContext);
     return {totalPrice: pricingContext.totalPrice()};
   }
 

@@ -6,7 +6,7 @@ class ReducedPriceRule {
     this._requiredQty = options.requiredQty || 0;
   }
 
-  apply(pricingContext) {
+  async apply(pricingContext) {
     const targetItem = pricingContext.checkoutItems[this._productId];
     const qualifies = (targetItem && targetItem.qty >= this._requiredQty);
 

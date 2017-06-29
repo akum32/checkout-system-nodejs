@@ -44,7 +44,7 @@ describe('Checkout', () => {
 
   function createFixedPriceRule(productId, price) {
     return {
-      apply: (pricingContext) => {
+      apply: async (pricingContext) => {
         const item = pricingContext.checkoutItems[productId];
         if (!item) return;
         const adjustAmount = (item.qty * price) - item.total();
