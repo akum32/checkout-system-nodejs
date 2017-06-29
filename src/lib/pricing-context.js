@@ -11,6 +11,10 @@ class PricingContext {
     return this._checkoutItems;
   }
 
+  get adjustments() {
+    return this._adjustments;
+  }
+
   addProductAdjustment(productId, amount) {
     this._adjustments.push({productId, amount});
   }
