@@ -1,9 +1,9 @@
 class ReducedPriceRule {
 
-  constructor(productId, reducedPrice, options = {}) {
+  constructor({productId, reducedPrice, requiredQty = 1}) {
     this._productId = productId;
     this._reducedPrice = reducedPrice;
-    this._requiredQty = options.requiredQty || 0;
+    this._requiredQty = requiredQty;
   }
 
   async apply(pricingContext) {

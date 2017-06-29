@@ -11,8 +11,8 @@ describe('reduced price rule', () => {
       requiredQty: 3,
       
       pricingContext: new PricingContext({
-        'A': new CheckoutItem({id: 'A', price: 100}, {qty: 2}),
-        'B': new CheckoutItem({id: 'B', price: 250}, {qty: 3})
+        'A': new CheckoutItem({product: {id: 'A', price: 100}, qty: 2}),
+        'B': new CheckoutItem({product: {id: 'B', price: 250}, qty: 3})
       })
     });
     expect(adjustments).to.eql([{productId: 'B', amount: -150}]);
@@ -25,8 +25,8 @@ describe('reduced price rule', () => {
       requiredQty: 3,
       
       pricingContext: new PricingContext({
-        'A': new CheckoutItem({id: 'A', price: 100}, {qty: 2}),
-        'B': new CheckoutItem({id: 'B', price: 250}, {qty: 4})
+        'A': new CheckoutItem({product: {id: 'A', price: 100}, qty: 2}),
+        'B': new CheckoutItem({product: {id: 'B', price: 250}, qty: 4})
       })
     });
     expect(adjustments).to.eql([{productId: 'B', amount: -200}]);
@@ -39,8 +39,8 @@ describe('reduced price rule', () => {
       requiredQty: 3,
       
       pricingContext: new PricingContext({
-        'A': new CheckoutItem({id: 'A', price: 100}, {qty: 2}),
-        'B': new CheckoutItem({id: 'B', price: 250}, {qty: 2})
+        'A': new CheckoutItem({product: {id: 'A', price: 100}, qty: 2}),
+        'B': new CheckoutItem({product: {id: 'B', price: 250}, qty: 2})
       })
     });
     expect(adjustments).to.eql([]);
@@ -53,14 +53,14 @@ describe('reduced price rule', () => {
       requiredQty: 1,
       
       pricingContext: new PricingContext({
-        'A': new CheckoutItem({id: 'A', price: 100}, {qty: 2})
+        'A': new CheckoutItem({product: {id: 'A', price: 100}, qty: 2})
       })
     });
     expect(adjustments).to.eql([]);
   });
 
   function applyRule({productId, reducedPrice, requiredQty, pricingContext}) {
-    const rule = new ReducedPriceRule(productId, reducedPrice, {requiredQty});
+    const rule = new ReducedPriceRule({productId, reducedPrice, requiredQty});
     rule.apply(pricingContext);
     return pricingContext.adjustments;
   }

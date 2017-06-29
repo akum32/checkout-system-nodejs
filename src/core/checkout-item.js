@@ -1,8 +1,8 @@
 class CheckoutItem {
 
-  constructor(product, options = {}) {
+  constructor({product, qty = 1}) {
     this._product = product;
-    this._qty = options.qty || 1;
+    this._qty = qty;
   }
 
   get id() {

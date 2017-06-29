@@ -1,6 +1,6 @@
 class DealPriceRule {
 
-  constructor(productId, requiredQty, freeQty) {
+  constructor({productId, requiredQty, freeQty}) {
     this._productId = productId;
     this._requiredQty = requiredQty;
     this._freeQty = freeQty;

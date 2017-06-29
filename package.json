@@ -6,8 +6,7 @@
     "test": "mocha test/**"
   },
   "author": "Asheesh Karwal",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "chai": "^3.5.0",
     "mocha": "^3.4.2",

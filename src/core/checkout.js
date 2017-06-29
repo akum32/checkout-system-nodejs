@@ -3,8 +3,8 @@ const PricingContext = require('./pricing-context');
 
 class Checkout {
 
-  constructor(productStore, priceRules) {
-    this._productStore = productStore;
+  constructor({productsStore, priceRules}) {
+    this._productsStore = productsStore;
     this._priceRules = priceRules || [];
     this._items = {};
   }
@@ -26,8 +26,9 @@ class Checkout {
   }
 
   async _addNewItem(productId) {
-    const product = await this._productStore.fetchById(productId);
-    this._items[productId] = new CheckoutItem(product);
+    const product = await this._productsStore.fetchById(productId);
+    
+    this._items[productId] = new CheckoutItem({product});
     return this._items[productId];
   }
 }
