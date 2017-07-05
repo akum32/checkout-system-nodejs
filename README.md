@@ -4,6 +4,16 @@ Pre-requisites: Nodejs v8.1.2
 Install dependencies: npm install
 Run tests: npm run test
 
+#### Problem
+- To implement a checkout system that calculates the total of all items by applying any 
+customer specific pricing rules (i.e. discounts). The checkout interface looks like: 
+```
+const checkout = new Checkout(...);
+checkout.add(itemId);
+checkout.add(itemId);
+checkout.total();
+```
+
 #### Assumptions
 - All product and discount prices are stored in cents to avoid rounding issues. These could
 be easily be formatted to dollars as required. Another option could have been to use a library 

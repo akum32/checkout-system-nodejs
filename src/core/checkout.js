@@ -27,7 +27,6 @@ class Checkout {
 
   async _addNewItem(productId) {
     const product = await this._productsStore.fetchById(productId);
-    
     this._items[productId] = new CheckoutItem({product});
     return this._items[productId];
   }
